@@ -51,7 +51,7 @@ export const NavItem = styled.div`
 export const NavSearchWapper = styled.div`
   position: relative;
   float: left;
-  .iconfont {
+  .zoom {
     position: absolute;
     right: 5px;
     bottom: 5px;
@@ -122,6 +122,15 @@ export const SearchInfoSwitch = styled.span`
   &:hover {
     color: #2f2f2f;
   }
+  .spin {
+    display: block;
+    float: left;
+    font-size: 12px;
+    margin-right: 3px;
+    margin-top: 1px;
+    transition: all .2s ease;
+    transform-origin: center center;
+  }
 `;
 
 export const SearchInfoList = styled.div`
@@ -138,6 +147,7 @@ export const SearchInfoItem = styled.a`
   border: 1px solid #ddd;
   border-radius: 3px;
   color: #787878;
+  cursor: pointer;
   &:hover{
     color: #333;
   }

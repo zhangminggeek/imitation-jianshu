@@ -10,11 +10,28 @@ export const focusStateChange = (state) => {
   }
 };
 
+// 修改鼠标移入状态
+export const mouseInStateChange = (state) => {
+  return {
+    type: actionType.MOUSE_IN_STATE_CHANGE,
+    state
+  }
+};
+
 // 修改热门列表
 export const changeList = (list) => {
   return {
     type: actionType.CHANGE_LIST,
-    list: fromJS(list)
+    list: fromJS(list),
+    length: Math.ceil(list.length / 10)
+  }
+};
+
+// 修改推荐列表页码
+export const pageChange = (page) => {
+  return {
+    type: actionType.CHANGE_PAGE,
+    page,
   }
 };
 

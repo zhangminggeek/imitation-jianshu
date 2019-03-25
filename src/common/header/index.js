@@ -20,20 +20,28 @@ import {
 
 class Header extends Component {
   getListArea() {
-    const { focused, list }  = this.props;
-    if (focused) {
+    const { focused, list, page, handleMouseInStateChange, mouseInState, handlePageChange, totalPages }  = this.props;
+    let newList = list.toJS();
+    let pageList = [];
+    if (newList.length) {
+      for (let i = (page - 1) * 10, len = page * 10; i < len; i++) {
+        pageList.push(newList[i] && <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>);
+      }
+    }
+    if (focused || mouseInState) {
       return (
-        <SearchInfo>
+        <SearchInfo
+          onMouseEnter={() => handleMouseInStateChange(true)}
+          onMouseLeave={() => handleMouseInStateChange(false)}>
           <SearchInfoTitle>
             热门搜索
-            <SearchInfoSwitch>换一批</SearchInfoSwitch>
+            <SearchInfoSwitch onClick={() => handlePageChange(page, totalPages, this.spinIcon)}>
+              <i ref={(icon) => {this.spinIcon = icon}} className="iconfont spin">&#xe69b;</i>
+              换一批
+            </SearchInfoSwitch>
           </SearchInfoTitle>
           <div>
-            <SearchInfoList>
-              {list.map(item => {
-                return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-              })}
-            </SearchInfoList>
+            <SearchInfoList>{pageList}</SearchInfoList>
           </div>
         </SearchInfo>
       )
@@ -43,7 +51,7 @@ class Header extends Component {
   };
 
   render() {
-    const { focused, handleInputFocusStateChange }  = this.props;
+    const { focused, list, handleInputFocusStateChange }  = this.props;
     return (
       <HeaderWrapper>
         <Logo href="/"></Logo>
@@ -60,11 +68,11 @@ class Header extends Component {
               <NavSearch
                 placeholder="搜索"
                 className={focused ? 'focus' : ''}
-                onFocus={() => {handleInputFocusStateChange(true)}}
-                onBlur={() => {handleInputFocusStateChange(false)}}>
+                onFocus={() => handleInputFocusStateChange(true, list)}
+                onBlur={() => handleInputFocusStateChange(false, list)}>
               </NavSearch>
             </CSSTransition>
-            <i className={`iconfont ${focused ? 'focus' : ''}`}>&#xe60b;</i>
+            <i className={`iconfont zoom ${focused ? 'focus' : ''}`}>&#xe60b;</i>
             {this.getListArea()}
           </NavSearchWapper>
         </Nav>
@@ -84,16 +92,30 @@ const mapStateToProps = (state) => {
     // focused: state.get('header').get('focused')
     // 等价于
     focused: state.getIn(['header', 'focused']),
-    list: state.getIn(['header', 'list'])
+    list: state.getIn(['header', 'list']),
+    page: state.getIn(['header', 'page']),
+    totalPages: state.getIn(['header', 'totalPages']),
+    mouseInState: state.getIn(['header', 'mouseInState'])
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     // 修改搜索框聚焦状态
-    handleInputFocusStateChange(isFocused) {
+    handleInputFocusStateChange(isFocused, list) {
       dispatch(actionCreator.focusStateChange(isFocused));
-      if (isFocused) dispatch(actionCreator.getList())
+      if (isFocused && !list.toJS().length) dispatch(actionCreator.getList())
+    },
+    // 修改鼠标
+    handleMouseInStateChange(state) {
+      dispatch(actionCreator.mouseInStateChange(state));
+    },
+    // 换一批
+    handlePageChange(page, totalPages, icon) {
+      const originAngle = parseInt(icon.style.transform.replace(/[^0-9]/g, '')) || 0;
+      icon.style.transform = `rotate(${originAngle + 360}deg)`;
+      page = page < totalPages ? ++page : 1;
+      dispatch(actionCreator.pageChange(page));
     }
   }
 };
