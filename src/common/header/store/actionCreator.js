@@ -1,11 +1,11 @@
-import * as actionType from './actionTypes';
+import * as actionTypes from './actionTypes';
 import { fromJS } from 'immutable';
 import axios from 'axios';
 
 // 修改聚焦状态
 export const focusStateChange = (state) => {
   return {
-    type: actionType.FOCUS_STATE_CHANGE,
+    type: actionTypes.FOCUS_STATE_CHANGE,
     state
   }
 };
@@ -13,7 +13,7 @@ export const focusStateChange = (state) => {
 // 修改鼠标移入状态
 export const mouseInStateChange = (state) => {
   return {
-    type: actionType.MOUSE_IN_STATE_CHANGE,
+    type: actionTypes.MOUSE_IN_STATE_CHANGE,
     state
   }
 };
@@ -21,7 +21,7 @@ export const mouseInStateChange = (state) => {
 // 修改热门列表
 export const changeList = (list) => {
   return {
-    type: actionType.CHANGE_LIST,
+    type: actionTypes.CHANGE_LIST,
     list: fromJS(list),
     length: Math.ceil(list.length / 10)
   }
@@ -30,7 +30,7 @@ export const changeList = (list) => {
 // 修改推荐列表页码
 export const pageChange = (page) => {
   return {
-    type: actionType.CHANGE_PAGE,
+    type: actionTypes.CHANGE_PAGE,
     page,
   }
 };
