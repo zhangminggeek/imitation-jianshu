@@ -8,12 +8,28 @@ export const changeTopicList = (list) => ({
   list: fromJS(list)
 });
 
+// 修改topic列表
+export const changeArticleList = (list) => ({
+  type: actionTypes.CHANGE_ARTICLE_LIST,
+  list: fromJS(list)
+});
+
 // 获取topic列表
 export const getTopicList = () => {
   return (dispatch) => {
     axios.get('https://www.easy-mock.com/mock/5c7b889bd764b271d20aca86/topic/list').then(res => {
       const data = res.data;
       if (data.success) dispatch(changeTopicList(data.data))
+    })
+  }
+};
+
+// 获取article列表
+export const getArticleList = () => {
+  return (dispatch) => {
+    axios.get('https://www.easy-mock.com/mock/5c7b889bd764b271d20aca86/article/list').then(res => {
+      const data = res.data;
+      if (data.success) dispatch(changeArticleList(data.data))
     })
   }
 };
