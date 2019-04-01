@@ -8,9 +8,21 @@ export const changeTopicList = (list) => ({
   list: fromJS(list)
 });
 
-// 修改topic列表
+// 修改article列表
 export const changeArticleList = (list) => ({
   type: actionTypes.CHANGE_ARTICLE_LIST,
+  list: fromJS(list)
+});
+
+// 添加更多article列表
+export const addArticle = (list) => ({
+  type: actionTypes.ADD_ARTICLE,
+  list: fromJS(list)
+});
+
+// 修改recommend列表
+export const changeRecommendList = (list) => ({
+  type: actionTypes.CHANGE_RECOMMEND_LIST,
   list: fromJS(list)
 });
 
@@ -30,6 +42,26 @@ export const getArticleList = () => {
     axios.get('https://www.easy-mock.com/mock/5c7b889bd764b271d20aca86/article/list').then(res => {
       const data = res.data;
       if (data.success) dispatch(changeArticleList(data.data))
+    })
+  }
+};
+
+// 加载更多article列表
+export const loadMoreArticles = () => {
+  return (dispatch) => {
+    axios.get('https://www.easy-mock.com/mock/5c7b889bd764b271d20aca86/article/list').then(res => {
+      const data = res.data;
+      if (data.success) dispatch(addArticle(data.data))
+    })
+  }
+};
+
+// 获取recommend列表
+export const getRecommendList = () => {
+  return (dispatch) => {
+    axios.get('https://www.easy-mock.com/mock/5c7b889bd764b271d20aca86/recommend/list').then(res => {
+      const data = res.data;
+      if (data.success) dispatch(changeRecommendList(data.data))
     })
   }
 };

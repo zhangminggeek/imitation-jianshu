@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import {
+  WriteWrapper
+} from '../style'
 
 class Writer extends Component {
   render() {
     return (
-      <div></div>
+      <WriteWrapper>
+        Writer
+      </WriteWrapper>
     )
   }
 }

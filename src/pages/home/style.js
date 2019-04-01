@@ -20,7 +20,7 @@ export const HomeLeft = styled.div`
 
 export const HomeRight = styled.div`
   float: right;
-  width: 240px;
+  width: 280px;
   padding-top: 30px;
 `;
 
@@ -85,4 +85,40 @@ export const ListInfo = styled.div`
     line-height: 18px;
     color: #999;
   }
+`;
+
+export const LoadMore = styled.div`
+  height: 40px;
+  line-height: 40px;
+  background: #a5a5a5;
+  text-align: center;
+  border-radius: 20px;
+  color: #fff;
+  margin: 30px 0;
+  cursor: pointer;
+`;
+
+// Recommend
+export const RecommendWrapper = styled.div`
+  width: 280px;
+  margin-bottom: 30px;
+`;
+
+export const RecommendItem = styled.div`
+  width: 280px;
+  height: 50px;
+  background: url(${(props) => props.imgUrl});
+  background-size: contain;
+  margin-bottom: 6px;
+  cursor: pointer;
+`;
+
+// Writer
+export const WriteWrapper = styled.div`
+  width: 278px;
+  height: 300px;
+  line-height: 300px;
+  border: 1px solid #dcdcdc;
+  border-radius: 3px;
+  text-align: center;
 `;
