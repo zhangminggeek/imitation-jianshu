@@ -24,6 +24,18 @@ export const HomeRight = styled.div`
   padding-top: 30px;
 `;
 
+export const BackTop = styled.div`
+  position: fixed;
+  right: 20px;
+  bottom: 30px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #ccc;
+`;
+
 // Topic
 export const TopicWrapper = styled.div`
   padding: 20px 0 10px;

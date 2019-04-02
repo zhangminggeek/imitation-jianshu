@@ -4,7 +4,8 @@ import { fromJS } from 'immutable';
 const defaultState = fromJS({
   topicList: [],
   articleList: [],
-  recommendList: []
+  recommendList: [],
+  showScrollTopButton: false
 });
 
 export default (state = defaultState, actions) => {
@@ -17,6 +18,8 @@ export default (state = defaultState, actions) => {
       return state.set('articleList', state.get('articleList').concat(actions.list));
     case actionTypes.CHANGE_RECOMMEND_LIST:
       return state.set('recommendList', actions.list);
+    case actionTypes.CHANGE_SCROLL_TOP_BUTTON_STATE:
+      return state.set('showScrollTopButton', actions.state);
     default:
       return state
   }

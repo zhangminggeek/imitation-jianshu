@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { actionCreator } from './store';
 
 import Topic from './components/Topic';
 import List from './components/List';
@@ -8,7 +10,8 @@ import Writer from './components/Writer';
 import {
   HomeWrapper,
   HomeLeft,
-  HomeRight
+  HomeRight,
+  BackTop
 } from './style'
 
 class Home extends Component {
@@ -24,9 +27,36 @@ class Home extends Component {
           <Recommend></Recommend>
           <Writer></Writer>
         </HomeRight>
+        {this.props.showScrollTopButton &&  <BackTop onClick={this.handleScrollTop}>回到顶部</BackTop>}
       </HomeWrapper>
     )
   }
+
+  componentDidMount() {
+    this.bindEvents();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.props.handleShowScrollTopButtonStateChange)
+  }
+
+  handleScrollTop() {
+    window.scrollTo(0, 0);
+  }
+
+  bindEvents() {
+    window.addEventListener('scroll', this.props.handleShowScrollTopButtonStateChange)
+  }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+  showScrollTopButton: state.getIn(['home', 'showScrollTopButton'])
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleShowScrollTopButtonStateChange() {
+    dispatch(actionCreator.changeShowScrollTopState(document.documentElement.scrollTop > 400))
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

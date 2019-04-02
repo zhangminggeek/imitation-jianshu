@@ -26,6 +26,12 @@ export const changeRecommendList = (list) => ({
   list: fromJS(list)
 });
 
+// 修改回到顶部按钮显示状态
+export const changeShowScrollTopState = (state) => ({
+  type: actionTypes.CHANGE_SCROLL_TOP_BUTTON_STATE,
+  state: fromJS(state)
+});
+
 // 获取topic列表
 export const getTopicList = () => {
   return (dispatch) => {
