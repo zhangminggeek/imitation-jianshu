@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { actionCreator } from './store';
+import { actionCreator as loginActionCreator } from '../../pages/login/store';
 import { CSSTransition } from 'react-transition-group';
+import { Link } from 'react-router-dom'
 import {
   HeaderWrapper,
   Logo,
@@ -51,14 +53,18 @@ class Header extends Component {
   };
 
   render() {
-    const { focused, list, handleInputFocusStateChange }  = this.props;
+    const { isLogin, focused, list, handleInputFocusStateChange, handleLogout }  = this.props;
     return (
       <HeaderWrapper>
-        <Logo href="/"></Logo>
+        <Link to="/"><Logo /></Link>
         <Nav>
           <NavItem className="left active">首页</NavItem>
           <NavItem className="left">下载APP</NavItem>
-          <NavItem className="right">登录</NavItem>
+          {
+            isLogin
+              ? <NavItem className="right" onClick={() => handleLogout()}>退出</NavItem>
+              : <Link to={'/login'}><NavItem className="right">登录</NavItem></Link>
+          }
           <NavItem className="right"><i className="iconfont">&#xe636;</i></NavItem>
           <NavSearchWapper>
             <CSSTransition
@@ -95,7 +101,8 @@ const mapStateToProps = (state) => {
     list: state.getIn(['header', 'list']),
     page: state.getIn(['header', 'page']),
     totalPages: state.getIn(['header', 'totalPages']),
-    mouseInState: state.getIn(['header', 'mouseInState'])
+    mouseInState: state.getIn(['header', 'mouseInState']),
+    isLogin: state.getIn(['login', 'isLogin'])
   }
 };
 
@@ -116,6 +123,10 @@ const mapDispatchToProps = (dispatch) => {
       icon.style.transform = `rotate(${originAngle + 360}deg)`;
       page = page < totalPages ? ++page : 1;
       dispatch(actionCreator.pageChange(page));
+    },
+    // 退出
+    handleLogout() {
+      dispatch(loginActionCreator.changeLoginState(false))
     }
   }
 };

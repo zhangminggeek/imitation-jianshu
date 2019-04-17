@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-export const Logo = styled.a`
+export const Logo = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -106,6 +106,7 @@ export const SearchInfo = styled.div`
   padding: 0 20px;
   background: #fff;
   box-shadow: 0 0 8px rgba(0, 0, 0, .2);
+  z-index: 1;
 `;
 
 export const SearchInfoTitle = styled.p`
