@@ -10,7 +10,7 @@ import {
   Button
 } from './style'
 
-class Home extends Component {
+class Login extends Component {
   render() {
     const { isLogin } = this.props
     if (isLogin) {
@@ -39,4 +39,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -16,7 +16,7 @@ export const login = (account, password) => {
     axios.post('https://www.easy-mock.com/mock/5c7b889bd764b271d20aca86/login', param).then(res => {
       const data = res.data;
       if (data.success) {
-        dispatch(changeLoginState(data.data));
+        dispatch(changeLoginState(true));
       }
     })
   }
